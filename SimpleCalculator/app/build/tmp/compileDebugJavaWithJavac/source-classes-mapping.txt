@@ -1,0 +1,15 @@
+com/example/simplecalculator/MainActivity.java
+ com.example.simplecalculator.MainActivity
+ com.example.simplecalculator.MainActivity$1
+ com.example.simplecalculator.MainActivity$10
+ com.example.simplecalculator.MainActivity$2
+ com.example.simplecalculator.MainActivity$3
+ com.example.simplecalculator.MainActivity$4
+ com.example.simplecalculator.MainActivity$5
+ com.example.simplecalculator.MainActivity$6
+ com.example.simplecalculator.MainActivity$7
+ com.example.simplecalculator.MainActivity$8
+ com.example.simplecalculator.MainActivity$9
+ com.example.simplecalculator.MainActivity$Operator
+com/example/simplecalculator/BuildConfig.java
+ com.example.simplecalculator.BuildConfig
