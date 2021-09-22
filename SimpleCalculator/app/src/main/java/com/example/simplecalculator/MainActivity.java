@@ -10,6 +10,10 @@ public class MainActivity extends AppCompatActivity {
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPlus, btnMinus, btnTimes, btnDivide, btnClear, btnDecimal, btnEquals;
     TextView display;
     double val1, val2;
+
+    enum Operator{none, add, minus, multiply, divide}
+    Operator op = Operator.none;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
