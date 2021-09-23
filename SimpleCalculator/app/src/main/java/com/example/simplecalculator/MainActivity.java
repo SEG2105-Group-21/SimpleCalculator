@@ -100,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 digitBtnClicked(9);
             }
         });
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearScreen();
+            }
+        });
 
     }
 
@@ -125,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 val1 += digit/(10*decimalDigit);
             }
         }
-    }
+    } // end of digitBtnClicked()
 
-}
+    /**
+     * Clears all characters and digits off the screen
+     * Called by OnClickListener of C button
+     */
+    protected void clearScreen() {
+        display.setText("");
+    } // end of clearScreen()
+
+} // end of MainActivity.java
