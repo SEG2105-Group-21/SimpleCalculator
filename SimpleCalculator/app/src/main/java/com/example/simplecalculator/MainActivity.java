@@ -10,10 +10,10 @@ public class MainActivity extends AppCompatActivity {
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPlus, btnMinus, btnTimes, btnDivide, btnClear, btnDecimal, btnEquals;
     TextView display;
     double val1, val2;
-    boolean isVal2;
+    boolean optrClicked;
     int decimalDigit;
 
-    enum Operator{none, add, minus, multiply, divide}
+    enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
     Operator op = Operator.none;
 
     @Override
@@ -40,10 +40,15 @@ public class MainActivity extends AppCompatActivity {
         btnDecimal = findViewById(R.id.BtnDecimal);
         btnEquals = findViewById(R.id.BtnEquals);
 
+        // =====================  buttons for digits  =====================
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                digitBtnClicked(0);
+                String currentTextOnScreen = display.getText().toString();
+                // only append the zero if it is not the first digit
+                if (!currentTextOnScreen.equals("")) {
+                    digitBtnClicked(0);
+                }
             }
         });
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +105,38 @@ public class MainActivity extends AppCompatActivity {
                 digitBtnClicked(9);
             }
         });
+
+        // =====================  operation buttons  =====================
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optrClicked = true;
+                val1 = Double.parseDouble(display.getText().toString());
+                clearScreen();
+                op = Operator.ADD;
+            }
+        });
+
+        btnEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                val2 = Double.parseDouble(display.getText().toString());
+                switch(op) {
+                    case ADD:
+                        optrClicked = false;
+                        op = Operator.none;
+                        display.setText(String.valueOf(val1 + val2));
+                        val1 = 0;
+                        val2 = 0;
+                    default:
+                        // empty default
+                } // end of switch
+
+                //TODO: Clear the screen here when the next digit is typed.
+            }
+        });
+
+        // =====================  other buttons  =====================
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,20 +155,21 @@ public class MainActivity extends AppCompatActivity {
     protected void digitBtnClicked(int digit) {
         display.setText(display.getText() + String.valueOf(digit));
 
-        if (isVal2) {
+        if (optrClicked) {
             if (decimalDigit == 0) {
                 val2 = 10 * val2 + digit;
             } else {
-                val2 += digit/(10*decimalDigit);
+                val2 += digit/Math.pow(10, decimalDigit);
             }
         } else {
             if (decimalDigit == 0) {
                 val1 = 10 * val1 + digit;
             } else {
-                val1 += digit/(10*decimalDigit);
+                val1 += digit/Math.pow(10, decimalDigit);
             }
         }
     } // end of digitBtnClicked()
+
 
     /**
      * Clears all characters and digits off the screen

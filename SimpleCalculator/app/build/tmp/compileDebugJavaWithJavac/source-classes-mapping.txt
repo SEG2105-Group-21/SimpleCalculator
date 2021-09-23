@@ -5,6 +5,9 @@ com/example/simplecalculator/MainActivity.java
  com.example.simplecalculator.MainActivity$1
  com.example.simplecalculator.MainActivity$10
  com.example.simplecalculator.MainActivity$11
+ com.example.simplecalculator.MainActivity$12
+ com.example.simplecalculator.MainActivity$13
+ com.example.simplecalculator.MainActivity$14
  com.example.simplecalculator.MainActivity$2
  com.example.simplecalculator.MainActivity$3
  com.example.simplecalculator.MainActivity$4
