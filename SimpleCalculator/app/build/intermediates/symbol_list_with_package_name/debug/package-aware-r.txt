@@ -1906,12 +1906,6 @@ id leftToRight
 id line1
 id line3
 id linear
-id linearLayout
-id linearLayout2
-id linearLayout3
-id linearLayout4
-id linearLayout5
-id linearLayout6
 id listMode
 id list_item
 id masked

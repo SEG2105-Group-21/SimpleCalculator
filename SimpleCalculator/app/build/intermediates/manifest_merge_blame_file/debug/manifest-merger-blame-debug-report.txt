@@ -6,44 +6,44 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="23"
-8-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml
+8-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="31" />
-9-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml
+9-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:5:5-21:19
+11-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:5:5-21:19
 12        android:allowBackup="true"
-12-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:6:9-35
+12-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:6:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.3.1] C:\Users\phili\.gradle\caches\transforms-3\d2d82602dbe4e040fb47b7f3d4ad9d83\transformed\core-1.3.1\AndroidManifest.xml:24:18-86
+13-->[androidx.core:core:1.3.1] C:\Users\trann\.gradle\caches\transforms-3\d2d82602dbe4e040fb47b7f3d4ad9d83\transformed\core-1.3.1\AndroidManifest.xml:24:18-86
 14        android:debuggable="true"
 15        android:extractNativeLibs="false"
 16        android:icon="@mipmap/ic_launcher"
-16-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:7:9-43
+16-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:7:9-43
 17        android:label="@string/app_name"
-17-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:8:9-41
+17-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:8:9-41
 18        android:roundIcon="@mipmap/ic_launcher_round"
-18-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:9:9-54
+18-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:9:9-54
 19        android:supportsRtl="true"
-19-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:10:9-35
+19-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:10:9-35
 20        android:testOnly="true"
 21        android:theme="@style/Theme.SimpleCalculator" >
-21-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:11:9-54
+21-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:11:9-54
 22        <activity
-22-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:12:9-20:20
+22-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:12:9-20:20
 23            android:name="com.example.simplecalculator.MainActivity"
-23-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:13:13-41
+23-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:13:13-41
 24            android:exported="true" >
-24-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:14:13-36
+24-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:14:13-36
 25            <intent-filter>
-25-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:15:13-19:29
+25-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:15:13-19:29
 26                <action android:name="android.intent.action.MAIN" />
-26-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:16:17-69
-26-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:16:25-66
+26-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:16:17-69
+26-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:16:25-66
 27
 28                <category android:name="android.intent.category.LAUNCHER" />
-28-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:18:17-77
-28-->C:\Users\phili\Desktop\Simple Calculator\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:18:27-74
+28-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:18:17-77
+28-->C:\Users\trann\Downloads\SimpleCalculator\SimpleCalculator\app\src\main\AndroidManifest.xml:18:27-74
 29            </intent-filter>
 30        </activity>
 31    </application>
