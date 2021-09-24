@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     // true after pressing btnEquals, so that the answer disappears when a number is input again
     boolean clearOnNextDigit;
 
-    enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE, DECIMAl}
+    enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
     Operator op;
 
     @Override
