@@ -2,6 +2,7 @@ package com.example.simplecalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     // true after pressing btnEquals, so that the answer disappears when a number is input again
     boolean clearOnNextDigit;
 
-    enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
+    enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE, DECIMAl}
     Operator op;
 
     @Override
@@ -111,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnDecimal.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+               display.setText(display.getText() + ".");
+            }
+        });
+
         // =====================  operation buttons  =====================
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.ADD;
+
             }
         });
 
