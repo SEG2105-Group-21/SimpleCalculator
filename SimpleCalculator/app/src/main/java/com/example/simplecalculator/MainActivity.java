@@ -9,8 +9,13 @@ import android.widget.*;
 public class MainActivity extends AppCompatActivity {
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPlus, btnMinus, btnTimes, btnDivide, btnClear, btnDecimal, btnEquals;
     TextView display;
+    // values that will be operated on
     double val1, val2;
+    // whether the operator has been clicked and val2 is now being edited
     boolean optrClicked;
+    // whether clicking btn0 would cause a useless leading zero
+    boolean leadingZero;
+    // how many decimal places are present so far on the currently-edited value
     int decimalDigit;
 
     enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
@@ -45,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String currentTextOnScreen = display.getText().toString();
-                // only append the zero if it is not the first digit
-                if (!currentTextOnScreen.equals("")) {
+                // only append the zero if it is not a repeated leading zero
+                if (!leadingZero) {
                     digitBtnClicked(0);
+                    // if pressing btn0 again would cause a useless leading zero
+                    if ((!optrClicked && val1 == 0) || (optrClicked && val2 == 0)) {
+                        leadingZero = true;
+                    }
                 }
             }
         });
@@ -168,6 +177,9 @@ public class MainActivity extends AppCompatActivity {
                 val1 += digit/Math.pow(10, decimalDigit);
             }
         }
+
+        // any following zeros will not be leading zeros
+        leadingZero = false;
     } // end of digitBtnClicked()
 
 
