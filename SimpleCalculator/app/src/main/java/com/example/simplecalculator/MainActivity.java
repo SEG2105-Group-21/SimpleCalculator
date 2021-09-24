@@ -161,25 +161,33 @@ public class MainActivity extends AppCompatActivity {
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                val2 = Double.parseDouble(display.getText().toString());
-                switch(op) {
-                    case ADD:
-                        display.setText(String.valueOf(val1 + val2));
-                        break;
-                    case MINUS:
-                        display.setText(String.valueOf(val1 - val2));
-                        break;
-                    case MULTIPLY:
-                        display.setText(String.valueOf(val1 * val2));
-                        break;
-                    case DIVIDE:
-                        display.setText(String.valueOf(val1 / val2));
-                        break;
-                } // end of switch
-                op = Operator.none;
-                val1 = 0;
-                val2 = 0;
-                clearOnNextDigit = true;
+
+                if (op != Operator.none) {
+
+                    val2 = Double.parseDouble(display.getText().toString());
+                    clearOnNextDigit = true;
+
+                    switch (op) {
+                        case ADD:
+                            display.setText(String.valueOf(val1 + val2));
+                            break;
+                        case MINUS:
+                            display.setText(String.valueOf(val1 - val2));
+                            break;
+                        case MULTIPLY:
+                            display.setText(String.valueOf(val1 * val2));
+                            break;
+                        case DIVIDE:
+                            display.setText(String.valueOf(val1 / val2));
+                            break;
+                        case none:
+                            clearOnNextDigit = false;
+                            break;
+                    } // end of switch
+                    op = Operator.none;
+                    val1 = 0;
+                    val2 = 0;
+                } // end of if
             }
         });
 
