@@ -11,12 +11,6 @@ public class MainActivity extends AppCompatActivity {
     TextView display;
     // values that will be operated on
     double val1, val2;
-    // whether the operator has been clicked and val2 is now being edited
-    boolean optrClicked;
-    // whether clicking btn0 would cause a useless leading zero
-    boolean leadingZero;
-    // how many decimal places are present so far on the currently-edited value
-    int decimalDigit;
 
     enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
     Operator op = Operator.none;
@@ -49,14 +43,9 @@ public class MainActivity extends AppCompatActivity {
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentTextOnScreen = display.getText().toString();
                 // only append the zero if it is not a repeated leading zero
-                if (!leadingZero) {
+                if (!checkLeadingZero()) {
                     digitBtnClicked(0);
-                    // if pressing btn0 again would cause a useless leading zero
-                    if ((!optrClicked && val1 == 0) || (optrClicked && val2 == 0)) {
-                        leadingZero = true;
-                    }
                 }
             }
         });
@@ -119,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                optrClicked = true;
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.ADD;
@@ -132,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 val2 = Double.parseDouble(display.getText().toString());
                 switch(op) {
                     case ADD:
-                        optrClicked = false;
                         op = Operator.none;
                         display.setText(String.valueOf(val1 + val2));
                         val1 = 0;
@@ -150,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clearScreen();
+                op = Operator.none;
+                val1 = 0;
+                val2 = 0;
             }
         });
 
@@ -162,24 +152,12 @@ public class MainActivity extends AppCompatActivity {
      * @param digit is the number associated with the pressed button.
      */
     protected void digitBtnClicked(int digit) {
-        display.setText(display.getText() + String.valueOf(digit));
-
-        if (optrClicked) {
-            if (decimalDigit == 0) {
-                val2 = 10 * val2 + digit;
-            } else {
-                val2 += digit/Math.pow(10, decimalDigit);
-            }
-        } else {
-            if (decimalDigit == 0) {
-                val1 = 10 * val1 + digit;
-            } else {
-                val1 += digit/Math.pow(10, decimalDigit);
-            }
+        // if there is a leading zero, replace it with digit
+        if (checkLeadingZero()) {
+            clearScreen();
         }
 
-        // any following zeros will not be leading zeros
-        leadingZero = false;
+        display.setText(display.getText() + String.valueOf(digit));
     } // end of digitBtnClicked()
 
 
@@ -190,5 +168,16 @@ public class MainActivity extends AppCompatActivity {
     protected void clearScreen() {
         display.setText("");
     } // end of clearScreen()
+
+    /**
+     * Checks if the current value is a single leading zero.
+     *
+     * @return true if it is, false otherwise.
+     */
+    protected boolean checkLeadingZero() {
+        CharSequence currText = display.getText();
+
+        return currText.length() == 1 && currText.charAt(0) == '0';
+    } // end of checkLeadingZero()
 
 } // end of MainActivity.java
