@@ -11,9 +11,11 @@ public class MainActivity extends AppCompatActivity {
     TextView display;
     // values that will be operated on
     double val1, val2;
+    // true after pressing btnEquals, so that the answer disappears when a number is input again
+    boolean clearOnNextDigit;
 
     enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
-    Operator op = Operator.none;
+    Operator op;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         btnClear = findViewById(R.id.BtnClear);
         btnDecimal = findViewById(R.id.BtnDecimal);
         btnEquals = findViewById(R.id.BtnEquals);
+
+        op = Operator.none;
+        val1 = 0;
+        val2 = 0;
+        clearOnNextDigit = false;
 
         // =====================  buttons for digits  =====================
         btn0.setOnClickListener(new View.OnClickListener() {
@@ -114,21 +121,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                val1 = Double.parseDouble(display.getText().toString());
+                clearScreen();
+                op = Operator.MINUS;
+            }
+        });
+
+        btnTimes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                val1 = Double.parseDouble(display.getText().toString());
+                clearScreen();
+                op = Operator.MULTIPLY;
+            }
+        });
+
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                val1 = Double.parseDouble(display.getText().toString());
+                clearScreen();
+                op = Operator.DIVIDE;
+            }
+        });
+
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 val2 = Double.parseDouble(display.getText().toString());
                 switch(op) {
                     case ADD:
-                        op = Operator.none;
                         display.setText(String.valueOf(val1 + val2));
-                        val1 = 0;
-                        val2 = 0;
-                    default:
-                        // empty default
+                        break;
+                    case MINUS:
+                        display.setText(String.valueOf(val1 - val2));
+                        break;
+                    case MULTIPLY:
+                        display.setText(String.valueOf(val1 * val2));
+                        break;
+                    case DIVIDE:
+                        display.setText(String.valueOf(val1 / val2));
+                        break;
                 } // end of switch
-
-                //TODO: Clear the screen here when the next digit is typed.
+                op = Operator.none;
+                val1 = 0;
+                val2 = 0;
+                clearOnNextDigit = true;
             }
         });
 
@@ -152,7 +193,11 @@ public class MainActivity extends AppCompatActivity {
      * @param digit is the number associated with the pressed button.
      */
     protected void digitBtnClicked(int digit) {
-        // if there is a leading zero, replace it with digit
+        if (clearOnNextDigit) {
+            clearScreen();
+            clearOnNextDigit = false;
+        }
+        // if there is only a leading zero, it will be replaced with the digit
         if (checkLeadingZero()) {
             clearScreen();
         }
