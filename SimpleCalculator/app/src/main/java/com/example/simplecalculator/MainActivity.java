@@ -116,7 +116,11 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-               display.setText(display.getText() + ".");
+
+                // if a decimal is NOT present on screen, proceed...
+                if (!display.getText().toString().contains(".")) {
+                    display.setText(display.getText() + ".");
+                }
             }
         });
 
@@ -127,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.ADD;
-
             }
         });
 
@@ -161,33 +164,7 @@ public class MainActivity extends AppCompatActivity {
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (op != Operator.none) {
-
-                    val2 = Double.parseDouble(display.getText().toString());
-                    clearOnNextDigit = true;
-
-                    switch (op) {
-                        case ADD:
-                            display.setText(String.valueOf(val1 + val2));
-                            break;
-                        case MINUS:
-                            display.setText(String.valueOf(val1 - val2));
-                            break;
-                        case MULTIPLY:
-                            display.setText(String.valueOf(val1 * val2));
-                            break;
-                        case DIVIDE:
-                            display.setText(String.valueOf(val1 / val2));
-                            break;
-                        case none:
-                            clearOnNextDigit = false;
-                            break;
-                    } // end of switch
-                    op = Operator.none;
-                    val1 = 0;
-                    val2 = 0;
-                } // end of if
+                equalsMethod();
             }
         });
 
@@ -203,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    // ==========================  helper methods  ==========================
 
     /**
      * Called by onClickListener of number buttons. Updates the display and
@@ -222,6 +201,45 @@ public class MainActivity extends AppCompatActivity {
 
         display.setText(display.getText() + String.valueOf(digit));
     } // end of digitBtnClicked()
+
+
+    /**
+     * This method acts as an equal button
+     *
+     * Created because btnEquals is not the only button or scenario where this function will need to be used.
+     * For example, when the user clicks 1 + 1 + 1, the result will be 2.0.
+     * This is because the first 1 gets overwritten when the second + symbol gets pressed.
+     * We need this function so that when the user performs the action 1 + 1 + 1, the display
+     *      should show "2" (and subsequently, val1 should be set to 2) when the second + symbol is pressed.
+     */
+    protected void equalsMethod() {
+        if (op != Operator.none) {
+
+            val2 = Double.parseDouble(display.getText().toString());
+            clearOnNextDigit = true;
+
+            switch (op) {
+                case ADD:
+                    display.setText(String.valueOf(val1 + val2));
+                    break;
+                case MINUS:
+                    display.setText(String.valueOf(val1 - val2));
+                    break;
+                case MULTIPLY:
+                    display.setText(String.valueOf(val1 * val2));
+                    break;
+                case DIVIDE:
+                    display.setText(String.valueOf(val1 / val2));
+                    break;
+                case none:
+                    clearOnNextDigit = false;
+                    break;
+            } // end of switch
+            op = Operator.none;
+            val1 = 0;
+            val2 = 0;
+        } // end of if
+    } // end of equalsMethod()
 
 
     /**
