@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         val1 = 0;
         val2 = 0;
         clearOnNextDigit = false;
+        clearScreen(); // used to reset the the app everytime the app is closed and then reopened
 
         // =====================  buttons for digits  =====================
         btn0.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +127,13 @@ public class MainActivity extends AppCompatActivity {
 
         // =====================  operation buttons  =====================
         btnPlus.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.ADD;
+
             }
         });
 
