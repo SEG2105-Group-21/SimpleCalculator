@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (op != Operator.none && op != null) {
+                if (op != null && op != Operator.none) {
                     double chainVal = Double.parseDouble(display.getText().toString());
                     equalsMethod(true, chainVal);
                 }
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (op != Operator.none && op != null) {
+                if (op != null && op != Operator.none) {
                     double chainVal = Double.parseDouble(display.getText().toString());
                     equalsMethod(true, chainVal);
                 }
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         btnTimes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (op != Operator.none && op != null) {
+                if (op != null && op != Operator.none) {
                     double chainVal = Double.parseDouble(display.getText().toString());
                     equalsMethod(true, chainVal);
                 }
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (op != Operator.none && op != null) {
+                if (op != null && op != Operator.none) {
                     double chainVal = Double.parseDouble(display.getText().toString());
                     equalsMethod(true, chainVal);
                 }
