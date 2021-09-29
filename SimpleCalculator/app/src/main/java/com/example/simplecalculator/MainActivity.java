@@ -208,7 +208,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Called by onClickListener of number buttons. Updates the display and
      * values.
-     * @digit Passed value
+     * @param digit
+     * Passed value integer
      */
     protected void digitBtnClicked(int digit) {
         if (clearOnNextDigit) {
