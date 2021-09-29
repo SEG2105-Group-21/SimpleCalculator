@@ -128,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (op != Operator.none && op != null) {
+                    double chainVal = Double.parseDouble(display.getText().toString());
+                    equalsMethod(true, chainVal);
+                }
+
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.ADD;
@@ -137,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (op != Operator.none && op != null) {
+                    double chainVal = Double.parseDouble(display.getText().toString());
+                    equalsMethod(true, chainVal);
+                }
+
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.MINUS;
@@ -146,6 +156,10 @@ public class MainActivity extends AppCompatActivity {
         btnTimes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (op != Operator.none && op != null) {
+                    double chainVal = Double.parseDouble(display.getText().toString());
+                    equalsMethod(true, chainVal);
+                }
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.MULTIPLY;
@@ -155,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (op != Operator.none && op != null) {
+                    double chainVal = Double.parseDouble(display.getText().toString());
+                    equalsMethod(true, chainVal);
+                }
                 val1 = Double.parseDouble(display.getText().toString());
                 clearScreen();
                 op = Operator.DIVIDE;
@@ -164,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                equalsMethod();
+                equalsMethod(false, 0);
+
             }
         });
 
@@ -186,8 +205,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Called by onClickListener of number buttons. Updates the display and
      * values.
-     *
-     * @param digit is the number associated with the pressed button.
+     * @digit Passed value
      */
     protected void digitBtnClicked(int digit) {
         if (clearOnNextDigit) {
@@ -211,13 +229,46 @@ public class MainActivity extends AppCompatActivity {
      * This is because the first 1 gets overwritten when the second + symbol gets pressed.
      * We need this function so that when the user performs the action 1 + 1 + 1, the display
      *      should show "2" (and subsequently, val1 should be set to 2) when the second + symbol is pressed.
+     * @param chain Chain marks if there are repeated operators prior to the equals
+     * @param chainVal Sum to pass through as needed
      */
-    protected void equalsMethod() {
-        if (op != Operator.none) {
+    protected void equalsMethod(boolean chain, double chainVal) {
 
-            val2 = Double.parseDouble(display.getText().toString());
-            clearOnNextDigit = true;
 
+        val2 = Double.parseDouble(display.getText().toString());
+        clearOnNextDigit = true;
+
+        //Detect operator present
+
+        if (chain) {
+            switch (op) {
+                case ADD:
+                    display.setText(String.valueOf(val1 + chainVal));
+                    val1 += chainVal;
+                    break;
+                case MINUS:
+                    display.setText(String.valueOf(val1 - chainVal));
+                    val1 -= chainVal;
+                    break;
+                case MULTIPLY:
+                    display.setText(String.valueOf(val1 * chainVal));
+                    val1 *= chainVal;
+                    break;
+                case DIVIDE:
+                    display.setText(String.valueOf(val1 / chainVal));
+                    break;
+                case none:
+                    clearOnNextDigit = false;
+                    val1 /= chainVal;
+                    break;
+
+            }
+            display.setText(String.valueOf(val1));
+            val2 = 0;
+            op = Operator.none;
+        }
+
+        else {
             switch (op) {
                 case ADD:
                     display.setText(String.valueOf(val1 + val2));
@@ -238,7 +289,8 @@ public class MainActivity extends AppCompatActivity {
             op = Operator.none;
             val1 = 0;
             val2 = 0;
-        } // end of if
+        }
+
     } // end of equalsMethod()
 
 
