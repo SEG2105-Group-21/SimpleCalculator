@@ -46,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         val1 = 0;
         val2 = 0;
         clearOnNextDigit = false;
-        clearScreen(); // used to reset the the app everytime the app is closed and then reopened
+        clearScreen(display); // used to reset the the app everytime the app is closed and then reopened
 
         // =====================  buttons for digits  =====================
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // only append the zero if it is not a repeated leading zero
-                if (!checkLeadingZero()) {
+                if (!checkLeadingZero(display.getText())) {
                     digitBtnClicked(0);
                 }
             }
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen();
+                clearScreen(display);
                 op = Operator.ADD;
 
             }
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen();
+                clearScreen(display);
                 op = Operator.MINUS;
             }
         });
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     equalsMethod(true, chainVal);
                 }
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen();
+                clearScreen(display);
                 op = Operator.MULTIPLY;
             }
         });
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                     equalsMethod(true, chainVal);
                 }
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen();
+                clearScreen(display);
                 op = Operator.DIVIDE;
             }
         });
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearScreen();
+                clearScreen(display);
                 op = Operator.none;
                 val1 = 0;
                 val2 = 0;
@@ -213,17 +213,27 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void digitBtnClicked(int digit) {
         if (clearOnNextDigit) {
-            clearScreen();
+            clearScreen(display);
             clearOnNextDigit = false;
         }
         // if there is only a leading zero, it will be replaced with the digit
-        if (checkLeadingZero()) {
-            clearScreen();
+        if (checkLeadingZero(display.getText())) {
+            clearScreen(display);
         }
 
-        display.setText(display.getText() + String.valueOf(digit));
+        display.setText(concatStrings(display.getText().toString(), String.valueOf(digit)));
     } // end of digitBtnClicked()
 
+    /**
+     * Simply concatenates two strings.
+     *
+     * @param str1 The first substring.
+     * @param str2 The second substring, to be concatenated to the back of str1.
+     * @return Returns the concatenation of the two given strings, in the order they were given.
+     */
+    public String concatStrings(String str1, String str2) {
+        return str1+str2; // used to be static but changed it since it static methods cannot be tested
+    }
 
     /**
      * This method acts as an equal button
@@ -237,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
      * @param chainVal Sum to pass through as needed
      */
     protected void equalsMethod(boolean chain, double chainVal) {
-
+        String result;
 
         val2 = Double.parseDouble(display.getText().toString());
         clearOnNextDigit = true;
@@ -245,51 +255,29 @@ public class MainActivity extends AppCompatActivity {
         //Detect operator present
 
         if (chain) {
-            switch (op) {
-                case ADD:
-                    display.setText(String.valueOf(val1 + chainVal));
-                    val1 += chainVal;
-                    break;
-                case MINUS:
-                    display.setText(String.valueOf(val1 - chainVal));
-                    val1 -= chainVal;
-                    break;
-                case MULTIPLY:
-                    display.setText(String.valueOf(val1 * chainVal));
-                    val1 *= chainVal;
-                    break;
-                case DIVIDE:
-                    display.setText(String.valueOf(val1 / chainVal));
-                    break;
-                case none:
-                    clearOnNextDigit = false;
-                    val1 /= chainVal;
-                    break;
+            result = doOperation(val1, chainVal, op);
 
+            if (result == null) {
+                clearOnNextDigit = false;
+                val1 /= chainVal;
+            } else {
+                display.setText(result);
+                val1 = Double.parseDouble(result);
             }
-            display.setText(String.valueOf(val1));
+
             val2 = 0;
             op = Operator.none;
         }
 
         else {
-            switch (op) {
-                case ADD:
-                    display.setText(String.valueOf(val1 + val2));
-                    break;
-                case MINUS:
-                    display.setText(String.valueOf(val1 - val2));
-                    break;
-                case MULTIPLY:
-                    display.setText(String.valueOf(val1 * val2));
-                    break;
-                case DIVIDE:
-                    display.setText(String.valueOf(val1 / val2));
-                    break;
-                case none:
-                    clearOnNextDigit = false;
-                    break;
-            } // end of switch
+            result = doOperation(val1, val2, op);
+
+            if (result == null) {
+                clearOnNextDigit = false;
+            } else {
+                display.setText(result);
+            }
+
             op = Operator.none;
             val1 = 0;
             val2 = 0;
@@ -297,24 +285,51 @@ public class MainActivity extends AppCompatActivity {
 
     } // end of equalsMethod()
 
+    /**
+     * Does the specified operation onto the two given values, to be returned in String format.
+     *
+     * @param val1 First double to be used in the operation.
+     * @param val2 Second double to be used in the operation.
+     * @param op Operator specified to be used on the two numbers.
+     * @return String containing the result of the operation on the two numbers.
+     */
+    public String doOperation(double val1, double val2, Operator op) {
+        switch (op) {
+            case ADD:
+                return String.valueOf(val1 + val2);
+            case MINUS:
+                return String.valueOf(val1 - val2);
+            case MULTIPLY:
+                return String.valueOf(val1 * val2);
+            case DIVIDE:
+                return String.valueOf(val1 / val2);
+        } // end of switch
+
+        return null;
+    }
 
     /**
      * Clears all characters and digits off the screen
      * Called by OnClickListener of C button
+     *
+     * @param tv TextView to make blank.
      */
-    protected void clearScreen() {
-        display.setText("");
+    protected void clearScreen(TextView tv) {
+        tv.setText("");
     } // end of clearScreen()
 
     /**
-     * Checks if the current value is a single leading zero.
+     * Checks if the value in a character sequence is a single leading zero.
      *
+     * @param text The string to check for the presence of a leading zero in.
      * @return true if it is, false otherwise.
      */
-    protected boolean checkLeadingZero() {
-        CharSequence currText = display.getText();
-
-        return currText.length() == 1 && currText.charAt(0) == '0';
+    public boolean checkLeadingZero(CharSequence text) {
+        return text.length() == 1 && text.charAt(0) == '0';
     } // end of checkLeadingZero()
 
 } // end of MainActivity.java
+
+/*  protected void clearScreen() {
+        display.setText("");
+    } // end of clearScreen()*/
