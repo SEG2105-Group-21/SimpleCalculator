@@ -2,6 +2,7 @@ package com.example.simplecalculator;
 
 import static org.junit.Assert.*;
 
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import org.junit.Before;
@@ -15,6 +16,7 @@ public class MainActivityTest {
     public void setUp(){
         a = new MainActivity();
     }
+
     @Test
     public void testConcatStrings() {
         String s1 = "5";
@@ -46,6 +48,20 @@ public class MainActivityTest {
 
     @Test
     public void testClearScreen() {
+        int numOfTests = 3;
+        String[] strToTest = new String[numOfTests];
+        strToTest[0] = "13 +";
+        strToTest[1] = "-0.5 - 33";
+        strToTest[2] = "";
+        String testMsgBeforeClrScr = "Testing text view BEFORE clearing the screen";
+        String testMsgAfterClrScr = "Testing text view AFTER clearing the screen";
+
+        for (int i = 0; i < numOfTests; i++) {
+            a.display.setText(strToTest[i]); // TODO: Currently fails here due to NullPointerException
+            assertEquals(testMsgBeforeClrScr, strToTest[i], a.display.getText());
+            a.clearScreen(a.display);
+            assertEquals(testMsgAfterClrScr, "", a.display.getText());
+        }
 
     }
 
