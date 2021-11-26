@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         val1 = 0;
         val2 = 0;
         clearOnNextDigit = false;
-        clearScreen(display); // used to reset the the app everytime the app is closed and then reopened
+        display.setText(clearScreen()); // used to reset the the app everytime the app is closed and then reopened
 
         // =====================  buttons for digits  =====================
         btn0.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen(display);
+                display.setText(clearScreen());
                 op = Operator.ADD;
 
             }
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen(display);
+                display.setText(clearScreen());
                 op = Operator.MINUS;
             }
         });
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     equalsMethod(true, chainVal);
                 }
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen(display);
+                display.setText(clearScreen());
                 op = Operator.MULTIPLY;
             }
         });
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     equalsMethod(true, chainVal);
                 }
                 val1 = Double.parseDouble(display.getText().toString());
-                clearScreen(display);
+                display.setText(clearScreen());
                 op = Operator.DIVIDE;
             }
         });
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearScreen(display);
+                display.setText(clearScreen());
                 op = Operator.none;
                 val1 = 0;
                 val2 = 0;
@@ -229,12 +229,12 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void digitBtnClicked(int digit) {
         if (clearOnNextDigit) {
-            clearScreen(display);
+            display.setText(clearScreen());
             clearOnNextDigit = false;
         }
         // if there is only a leading zero, it will be replaced with the digit
         if (checkLeadingZero(display.getText())) {
-            clearScreen(display);
+            display.setText(clearScreen());
         }
 
         display.setText(concatStrings(display.getText().toString(), String.valueOf(digit)));
@@ -331,11 +331,11 @@ public class MainActivity extends AppCompatActivity {
      * Clears all characters and digits off the screen
      * Called by OnClickListener of C button
      *
-     * @param tv TextView to make blank.
+     * @return returns an empty string.
      *
      */
-    protected void clearScreen(TextView tv) {
-        tv.setText("");
+    public static String clearScreen() {
+        return "";
     } // end of clearScreen()
 
     /**
