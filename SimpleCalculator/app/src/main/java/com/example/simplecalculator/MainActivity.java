@@ -7,15 +7,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+/**
+ * A simple calculator application that can perform addition, subtraction, multiplication, and division
+ *  on numbers.
+ *
+ * @author Kien Do
+ * @author Philip Ostroscki
+ * @author Jordan Takefman
+ * @author Isaac Kuruvilla
+ * @version 1.0 (2021/11/25)
+ * @since version 0.0
+ */
 public class MainActivity extends AppCompatActivity {
+    /** Represents the calculator buttons */
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnPlus, btnMinus, btnTimes, btnDivide, btnClear, btnDecimal, btnEquals;
+    /** Represents the text view that displays what the user has pressed, what the results on screen are, etc. */
     TextView display;
-    // values that will be operated on
+    /** Represents the values that are operated on. */
     double val1, val2;
-    // true after pressing btnEquals, so that the answer disappears when a number is input again
+    /** True after pressing btnEquals so that the answer disappears when a new number is inputted by the user. */
     boolean clearOnNextDigit;
 
+    /** Class that represents the calculator's operators.*/
     enum Operator{none, ADD, MINUS, MULTIPLY, DIVIDE}
+    /** Represents the selected calculator operations. */
     Operator op;
 
     @Override
@@ -210,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
      * values.
      * @param digit
      * Passed value integer
+     *
      */
     protected void digitBtnClicked(int digit) {
         if (clearOnNextDigit) {
@@ -230,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
      * @param str1 The first substring.
      * @param str2 The second substring, to be concatenated to the back of str1.
      * @return Returns the concatenation of the two given strings, in the order they were given.
+     *
      */
     public String concatStrings(String str1, String str2) {
         return str1+str2; // used to be static but changed it since it static methods cannot be tested
@@ -245,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
      *      should show "2" (and subsequently, val1 should be set to 2) when the second + symbol is pressed.
      * @param chain Chain marks if there are repeated operators prior to the equals
      * @param chainVal Sum to pass through as needed
+     *
      */
     protected void equalsMethod(boolean chain, double chainVal) {
         String result;
@@ -292,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
      * @param val2 Second double to be used in the operation.
      * @param op Operator specified to be used on the two numbers.
      * @return String containing the result of the operation on the two numbers.
+     *
      */
     public String doOperation(double val1, double val2, Operator op) {
         switch (op) {
@@ -313,6 +332,7 @@ public class MainActivity extends AppCompatActivity {
      * Called by OnClickListener of C button
      *
      * @param tv TextView to make blank.
+     *
      */
     protected void clearScreen(TextView tv) {
         tv.setText("");
@@ -323,13 +343,10 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param text The string to check for the presence of a leading zero in.
      * @return true if it is, false otherwise.
+     *
      */
     public boolean checkLeadingZero(CharSequence text) {
         return text.length() == 1 && text.charAt(0) == '0';
     } // end of checkLeadingZero()
 
 } // end of MainActivity.java
-
-/*  protected void clearScreen() {
-        display.setText("");
-    } // end of clearScreen()*/
