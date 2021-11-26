@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     /** Represents the selected calculator operations. */
     Operator op;
 
+
+    /**
+     * Initializes buttons on application start
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
